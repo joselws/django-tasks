@@ -14,4 +14,6 @@
     {% empty %}
         <h2>No tasks to show</h2>
     {% endfor %}
+
+    <a href="{% url 'add' %}">Add a new task</a>
 {% endblock %}

@@ -34,3 +34,37 @@ class TestShowTasksView(TestCase):
         self.assertEqual(response.context.get("tasks").count(), 0)
         self.assertTemplateUsed(response, "tasks/tasks.html")
         self.assertTemplateUsed(response, "tasks/layout.html")
+
+
+class TestAddTaskView(TestCase):
+    def test_show_add_task_view(self):
+        client = Client()
+        response = client.get(reverse("add"))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.request.get("PATH_INFO"), "/tasks/add")
+        self.assertIsNone(response.context.get("message"))
+        self.assertTemplateUsed(response, "tasks/add.html")
+        self.assertTemplateUsed(response, "tasks/layout.html")
+
+    def test_add_new_task_success(self):
+        client = Client()
+        data = {"title": "test title", "description": "lorem"}
+        response = client.post(reverse("add"), data, follow=True)
+        redirect_path, redirect_status_code = response.redirect_chain[0]
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.request.get("PATH_INFO"), "/tasks/")
+        self.assertEqual(redirect_path, "/tasks/")
+        self.assertEqual(redirect_status_code, 302)
+        self.assertIsNone(response.context.get("message"))
+        self.assertTemplateUsed(response, "tasks/tasks.html")
+        self.assertTemplateUsed(response, "tasks/layout.html")
+
+    def test_add_new_task_error(self):
+        client = Client()
+        data = {"title": "", "description": "lorem"}
+        response = client.post(reverse("add"), data)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.request.get("PATH_INFO"), "/tasks/add")
+        self.assertIsNotNone(response.context.get("message"))
+        self.assertTemplateUsed(response, "tasks/add.html")
+        self.assertTemplateUsed(response, "tasks/layout.html")

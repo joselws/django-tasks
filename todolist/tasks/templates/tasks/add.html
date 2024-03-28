@@ -1,0 +1,31 @@
+{% extends "tasks/layout.html" %}
+
+{% block title %}Add task{% endblock %}
+
+{% block body %}
+
+    <h1>Add a new task</h1>
+
+    <form action="{% url 'add' %}" method="post">
+        {% csrf_token %}
+        <label for="task-title">Title:</label>
+        <input 
+            id="task-title" 
+            name="title" 
+            type="text" 
+            placeholder="Write task title..." 
+            minlength="1"
+            maxlength="128"
+            required 
+        />
+        <p>{{ message }}</p>
+        <label for="task-description">Description:</label>
+        <textarea 
+            id="task-description" 
+            name="description"
+            placeholder="Write task description..."></textarea>
+        <input type="submit" value="Submit" />
+    </form>
+
+    <a href="{% url 'show_tasks' %}">Go back to tasks list</a>
+{% endblock %}

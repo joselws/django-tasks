@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
+from django.core.exceptions import ValidationError
+from django.urls import reverse
 from tasks.models import Task
 
 
@@ -14,7 +16,23 @@ def show_tasks(request: HttpRequest) -> HttpResponse:
 
 
 def add(request: HttpRequest) -> HttpResponse:
-    pass
+    if request.method == "GET":
+        return render(request, "tasks/add.html")
+    
+    # Handle form submission (request.method == "POST")
+    title = request.POST.get("title")
+    description = request.POST.get("description")
+    task = Task(title=title, description=description)
+
+    try:
+        task.full_clean()
+        task.save()
+    except ValidationError:
+        # Redirect to add.html with an error message
+        context = {"message": "Task title validation error"}
+        return render(request, "tasks/add.html", context, status=400)
+    
+    return HttpResponseRedirect(reverse("show_tasks"))
 
 
 def remove(request: HttpRequest) -> HttpResponse:
