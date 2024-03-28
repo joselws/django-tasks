@@ -1,15 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
-
-# Create your views here.
+from tasks.models import Task
 
 
 def index(request: HttpRequest) -> HttpResponse:
     return render(request, "tasks/index.html")
 
 
-def tasks(request: HttpRequest) -> HttpResponse:
-    pass
+def show_tasks(request: HttpRequest) -> HttpResponse:
+    tasks = Task.objects.all()
+    context = {"tasks": tasks}
+    return render(request, "tasks/tasks.html", context)
 
 
 def add(request: HttpRequest) -> HttpResponse:
