@@ -2,10 +2,8 @@ from tasks.models import Task
 from django.test import TestCase
 from django.core.exceptions import ValidationError
 
-# Create your tests here.
 
 class TaskModelTestCase(TestCase):
-    
     def test_task_created_correctly(self):
         """All task's given values are correctly set on creation"""
 
@@ -28,7 +26,7 @@ class TaskModelTestCase(TestCase):
 
     def test_task_creation_error_title_too_long(self):
         """
-        Task raises ValidationError and is not created 
+        Task raises ValidationError and is not created
         when the title length exceeds 128 characters
         """
         # 129 characters' long title
