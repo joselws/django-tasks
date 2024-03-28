@@ -18,7 +18,7 @@ def show_tasks(request: HttpRequest) -> HttpResponse:
 def add(request: HttpRequest) -> HttpResponse:
     if request.method == "GET":
         return render(request, "tasks/add.html")
-    
+
     # Handle form submission (request.method == "POST")
     title = request.POST.get("title")
     description = request.POST.get("description")
@@ -31,13 +31,26 @@ def add(request: HttpRequest) -> HttpResponse:
         # Redirect to add.html with an error message
         context = {"message": "Task title validation error"}
         return render(request, "tasks/add.html", context, status=400)
-    
+
     return HttpResponseRedirect(reverse("show_tasks"))
 
 
-def remove(request: HttpRequest) -> HttpResponse:
-    pass
+def delete(request: HttpRequest, task_id: int) -> HttpResponse:
+    try:
+        task = Task.objects.get(pk=task_id)
+    except Task.DoesNotExist:
+        return HttpResponseRedirect(reverse("show_tasks"))
+
+    task.delete()
+    return HttpResponseRedirect(reverse("show_tasks"))
 
 
-def update(request: HttpRequest) -> HttpResponse:
-    pass
+def edit(request: HttpRequest, task_id: int) -> HttpResponse:
+    try:
+        task = Task.objects.get(pk=task_id)
+    except Task.DoesNotExist:
+        return HttpResponseRedirect(reverse("show_tasks"))
+
+    task.is_completed = not task.is_completed
+    task.save()
+    return HttpResponseRedirect(reverse("show_tasks"))

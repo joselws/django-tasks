@@ -10,6 +10,19 @@
         <div>
             <p>{{task.title}}</p>
             <p>{{task.description}}</p>
+            <form action="{% url 'edit' task.id %}" method="post">
+                {% csrf_token %}
+                {% if task.is_completed %}
+                    <input type="submit" value="Unmark"/>
+                {% else %}
+                    <input type="submit" value="Mark"/>
+                {% endif %}
+            </form>
+            
+            <form action="{% url 'delete' task.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Delete"/>
+            </form>
         </div>
     {% empty %}
         <h2>No tasks to show</h2>
