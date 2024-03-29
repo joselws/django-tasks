@@ -4,28 +4,34 @@
 
 {% block body %}
 
-    <h1>Add a new task</h1>
+    <h1 class="title">Add a new task</h1>
 
-    <form action="{% url 'add' %}" method="post">
+    <form action="{% url 'add' %}" method="post" id="task-form">
         {% csrf_token %}
-        <label for="task-title">Title:</label>
-        <input 
-            id="task-title" 
-            name="title" 
-            type="text" 
-            placeholder="Write task title..." 
-            minlength="1"
-            maxlength="128"
-            required 
-        />
-        <p>{{ message }}</p>
-        <label for="task-description">Description:</label>
-        <textarea 
-            id="task-description" 
-            name="description"
-            placeholder="Write task description..."></textarea>
-        <input type="submit" value="Submit" />
+        <div class="form-section">
+            <label for="task-title">Title:</label>
+            <input 
+                id="task-title" 
+                name="title" 
+                type="text" 
+                placeholder="Write task title..." 
+                minlength="1"
+                maxlength="128"
+                required 
+            />
+            <p>{{ message }}</p>
+        </div>
+        <div class="form-section">
+            <label for="task-description">Description:</label>
+            <textarea 
+                id="task-description" 
+                name="description"
+                placeholder="Write task description..."></textarea>
+        </div>
+        <div class="form-section">
+            <input class="button submit-btn" type="submit" value="Add" />
+        </div>
     </form>
 
-    <a href="{% url 'show_tasks' %}">Go back to tasks list</a>
+    <a class="link" href="{% url 'show_tasks' %}">Go back to tasks list</a>
 {% endblock %}
