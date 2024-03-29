@@ -2,10 +2,10 @@
 # Exit on error
 set -o errexit
 
-cd todolist
-
 # Modify this line as needed for your package manager (pip, poetry, etc.)
 pip install -r requirements.txt
+
+cd todolist
 
 # set up database
 python manage.py makemigrations
