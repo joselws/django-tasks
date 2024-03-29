@@ -3,6 +3,8 @@
 {% block title %}Tasks{% endblock %}
 
 {% block body %}
-    <h1>Welcome to the website!</h1>
-    <h2><a href="{% url 'show_tasks' %}">Go to tasks.</a></h2>
+    <h1 id="index-title">Welcome to the website!</h1>
+    <p id="index-info">This is a quick draft of a simple Django To-Do list for a tech test.</p>
+    <h2 id="index-link"><a href="{% url 'show_tasks' %}">Continue here (go to tasks)</a></h2>
+    <p id="index-secret">Hire me, I'm the right candidate ;)</p>
 {% endblock %}
