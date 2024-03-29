@@ -4,29 +4,34 @@
 
 {% block body %}
 
-    <h1>Tasks</h1>
+    <h1 id="tasks-title">Tasks</h1>
 
-    {% for task in tasks %}
-        <div>
-            <p>{{task.title}}</p>
-            <p>{{task.description}}</p>
-            <form action="{% url 'edit' task.id %}" method="post">
-                {% csrf_token %}
-                {% if task.is_completed %}
-                    <input type="submit" value="Unmark"/>
-                {% else %}
-                    <input type="submit" value="Mark"/>
-                {% endif %}
-            </form>
-            
-            <form action="{% url 'delete' task.id %}" method="post">
-                {% csrf_token %}
-                <input type="submit" value="Delete"/>
-            </form>
-        </div>
-    {% empty %}
-        <h2>No tasks to show</h2>
-    {% endfor %}
+    <a class="link" href="{% url 'add' %}">Add a new task</a>
 
-    <a href="{% url 'add' %}">Add a new task</a>
+    <div id="tasks-container">
+        {% for task in tasks %}
+            <div class="task-card {% if task.is_completed %}task-finished{% endif %}">
+                <p class="task-text task-title">{{task.title}}</p>
+                <p class="task-text">{{task.description}}</p>
+                <div class="buttons-container">
+                    <form action="{% url 'edit' task.id %}" method="post">
+                        {% csrf_token %}
+                        {% if task.is_completed %}
+                            <input class="button edit-btn" type="submit" value="Unmark"/>
+                        {% else %}
+                            <input class="button edit-btn" type="submit" value="Mark"/>
+                        {% endif %}
+                    </form>
+                    
+                    <form action="{% url 'delete' task.id %}" method="post">
+                        {% csrf_token %}
+                        <input class="button delete-btn" type="submit" value="Delete"/>
+                    </form>
+                </div>
+            </div>
+        {% empty %}
+            <h2>No tasks to show</h2>
+        {% endfor %}
+    </div>
+
 {% endblock %}

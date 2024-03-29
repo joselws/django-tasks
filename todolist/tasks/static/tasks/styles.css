@@ -1,8 +1,16 @@
+/* Basic settings */
+
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
+body * {
+    transition: 0.3s;
+}
+
+/* index page */
 
 #index-info {
     font-size: 20px;
@@ -21,4 +29,67 @@ body {
 
 #index-secret:hover {
     color: white;
+}
+
+/* tasks page */
+
+#tasks-title {
+    margin: 50px 0px;
+}
+
+#tasks-container {
+    border: solid black 4px;
+    border-radius: 20px;
+    max-width: 50vw;
+}
+
+.task-card {
+    padding: 10px;
+    border: 1px solid black;
+}
+
+.link {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.task-text {
+    text-align: center;
+}
+
+.task-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.task-finished {
+    background-color: lightgray;
+    text-decoration-line: line-through;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.button {
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 14px;
+    border: none;
+}
+
+.button:hover {
+    cursor: pointer;
+    filter: brightness(0.8);
+}
+
+.edit-btn {
+    background-color: #FFBC49;
+}
+
+.delete-btn {
+    background-color: #E2574C;
 }
