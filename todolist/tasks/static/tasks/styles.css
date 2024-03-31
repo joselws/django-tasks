@@ -20,17 +20,6 @@ body * {
     margin-top: 30vh;
 }
 
-#index-secret {
-    font-size: 14px;
-    background-color: black;
-    display: inline-block;
-    padding: 2px 5px;
-}
-
-#index-secret:hover {
-    color: white;
-}
-
 /* tasks page */
 
 .title {
